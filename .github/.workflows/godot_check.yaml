@@ -1,0 +1,25 @@
+name: Godot Check
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download Godot
+        run: |
+          wget https://downloads.tuxfamily.org/godotengine/4.5/Godot_v4.5.1-stable_linux.x86_64.zip -O godot.zip
+          unzip godot.zip
+          chmod +x Godot_v4.5.1-stable_linux.x86_64
+
+      - name: Run headless check
+        run: |
+          ./Godot_v4.5.1-stable_linux.x86_64 \
+            --headless \
+            --check-errors \
+            --path .
